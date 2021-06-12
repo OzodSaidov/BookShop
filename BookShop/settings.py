@@ -112,6 +112,8 @@ else:
         }
     }
 
+AUTH_USER_MODEL = 'user.User'
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -196,3 +198,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
 # Make a tuple of strings instead of a string
 STATICFILES_DIRS = ('static',)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')

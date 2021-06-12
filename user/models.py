@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from base.model import BaseModel
+from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):
@@ -9,14 +10,23 @@ class User(AbstractUser):
         ('F', 'female'),
     )
 
-    first_name = models.CharField(max_length=50,blank=True, null=True)
+    username = models.CharField(max_length=150, unique=True,
+                                error_messages={
+                                    'unique': _("A user with that phone already exists."),
+                                },)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     email = models.EmailField()
     gender = models.CharField(choices=GENDER, max_length=10)
 
+    USERNAME_FIELD = 'username'
+
+    def __str__(self):
+        return self.get_username
+
     @property
     def get_full_name(self):
-        return super(User, self).get_full_name()
+        return super().get_full_name()
 
 
 class UserProfile(BaseModel):
@@ -28,7 +38,7 @@ class UserProfile(BaseModel):
         (MODERATOR, 'Moderator'),
         (NEWBIE, 'Newbie'),
     )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=25)
