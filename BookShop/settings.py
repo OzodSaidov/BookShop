@@ -15,6 +15,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 env_path = '.env'
@@ -57,6 +58,7 @@ SECONDARY_APPS = [
 USER_APPS = [
     'book',
     'user',
+    'adminpanel',
 ]
 
 INSTALLED_APPS = PRIMARY_APPS + SECONDARY_APPS + USER_APPS
@@ -201,3 +203,6 @@ STATICFILES_DIRS = ('static',)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media/')
+
+LOGIN_REDIRECT_URL = reverse_lazy('adminpanel:index')
+LOGIN_URL = reverse_lazy('adminpanel:login')

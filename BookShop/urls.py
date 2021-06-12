@@ -25,6 +25,7 @@ from BookShop import settings
 urlpatterns = [
     path('', include('book.urls')),
     path('admin/', admin.site.urls),
+    path('cpanel/', include('adminpanel.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
