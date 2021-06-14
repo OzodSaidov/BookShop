@@ -5,10 +5,10 @@ from django.views import generic
 from .services.permissions import AdminAccess
 
 
-class IndexView(LoginRequiredMixin, generic.RedirectView):
+class IndexRedirectView(LoginRequiredMixin, generic.RedirectView):
     def get_redirect_url(self, *args, **kwargs):
-        return reverse_lazy('adminpanel:cpanel')
+        return reverse_lazy('adminpanel:index')
 
 
-class AdminPanelView(AdminAccess, generic.TemplateView):
+class IndexView(AdminAccess, generic.TemplateView):
     template_name = 'admin-panel/index.html'

@@ -1,1 +1,1 @@
-$.ender({ moment: require('moment') })
+$.ender({ moment: require('admin-panel/vendor/moment/moment') })
