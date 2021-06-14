@@ -19,13 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.contrib.auth.views import LoginView, LogoutView
 
 from BookShop import settings
 
 urlpatterns = [
     path('', include('book.urls')),
     path('admin/', admin.site.urls),
-    path('cpanel/', include('adminpanel.urls')),
+    path('adminpanel/', include('adminpanel.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('api.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

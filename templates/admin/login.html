@@ -20,23 +20,23 @@
     <meta name="author" content="Creative Tim">
     <title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
     <!-- Favicon -->
-    <link rel="icon" href="{% static 'admin-panel/img/brand/favicon.png' %}" type="image/png">
+    <link rel="icon" href="{% static 'adminpanel/img/brand/favicon.png' %}" type="image/png">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <!-- Icons -->
-    <link rel="stylesheet" href="{% static 'admin-panel/vendor/nucleo/css/nucleo.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'admin-panel/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
+    <link rel="stylesheet" href="{% static 'adminpanel/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'adminpanel/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
           type="text/css">
     <!-- Argon CSS -->
-    <link rel="stylesheet" href="{% static 'admin-panel/css/argon.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'adminpanel/css/argon.css' %}" type="text/css">
 </head>
 
 <body class="bg-default">
 <!-- Navbar -->
 <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="dashboard.html">
-            <img src="{% static 'admin-panel/img/brand/white.png' %}" alt="">
+        <a class="navbar-brand" href="../adminpanel/dashboard.html">
+            <img src="{% static 'adminpanel/img/brand/white.png' %}" alt="">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
                 aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,8 +46,8 @@
             <div class="navbar-collapse-header">
                 <div class="row">
                     <div class="col-6 collapse-brand">
-                        <a href="dashboard.html">
-                            <img src="{% static 'admin-panel/img/brand/blue.png' %}" alt="">
+                        <a href="../adminpanel/dashboard.html">
+                            <img src="{% static 'adminpanel/img/brand/blue.png' %}" alt="">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
@@ -62,7 +62,7 @@
             </div>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="dashboard.html" class="nav-link">
+                    <a href="../adminpanel/dashboard.html" class="nav-link">
                         <span class="nav-link-inner--text">Dashboard</span>
                     </a>
                 </li>
@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="register.html" class="nav-link">
+                    <a href="../adminpanel/register.html" class="nav-link">
                         <span class="nav-link-inner--text">Register</span>
                     </a>
                 </li>
@@ -151,12 +151,12 @@
                         <div class="btn-wrapper text-center">
                             <a href="#" class="btn btn-neutral btn-icon">
                                 <span class="btn-inner--icon"><img
-                                        src="{% static 'admin-panel/img/icons/common/github.svg' %}" alt=""></span>
+                                        src="{% static 'adminpanel/img/icons/common/github.svg' %}" alt=""></span>
                                 <span class="btn-inner--text">Github</span>
                             </a>
                             <a href="#" class="btn btn-neutral btn-icon">
                                 <span class="btn-inner--icon"><img
-                                        src="{% static 'admin-panel/img/icons/common/google.svg' %}" alt=""></span>
+                                        src="{% static 'adminpanel/img/icons/common/google.svg' %}" alt=""></span>
                                 <span class="btn-inner--text">Google</span>
                             </a>
                         </div>
@@ -165,14 +165,21 @@
                         <div class="text-center text-muted mb-4">
                             <small>Or sign in with credentials</small>
                         </div>
-                        <form role="form">
+                        {% if form.errors %}
+                            <div class="text-danger text-center">
+                                <p class="px-2">The e-mail address or password you entered was incorrect!</p>
+                            </div>
+                        {% endif %}
+                        <form method="post" action="{% url 'adminpanel:login' %}">
+                            {% csrf_token %}
                             <div class="form-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
                                     <label>
-                                        <input name="email" class="form-control" placeholder="Email" type="email">
+                                        <input id="email" name="{{ form.username.name }}" class="form-control" placeholder="Email"
+                                               type="email" required>
                                     </label>
                                 </div>
                             </div>
@@ -182,7 +189,8 @@
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
                                     <label>
-                                        <input name="passowrd" class="form-control" placeholder="Password" type="password">
+                                        <input id="password" name="{{ form.password.name }}" class="form-control" placeholder="Password"
+                                               type="password" required>
                                     </label>
                                 </div>
                             </div>
@@ -193,7 +201,7 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary my-4">Sign in</button>
+                                <button type="submit" class="btn btn-primary my-4">Sign in</button>
                             </div>
                         </form>
                     </div>
@@ -243,13 +251,13 @@
 </footer>
 <!-- Argon Scripts -->
 <!-- Core -->
-<script src="{% static 'admin-panel/vendor/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'admin-panel/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'admin-panel/vendor/js-cookie/js.cookie.js' %}"></script>
-<script src="{% static 'admin-panel/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
-<script src="{% static 'admin-panel/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
+<script src="{% static 'adminpanel/vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'adminpanel/vendor/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'adminpanel/vendor/js-cookie/js.cookie.js' %}"></script>
+<script src="{% static 'adminpanel/vendor/jquery.scrollbar/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'adminpanel/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js' %}"></script>
 <!-- Argon JS -->
-<script src="{% static 'admin-panel/js/argon.js' %}"></script>
+<script src="{% static 'adminpanel/js/argon.js' %}"></script>
 </body>
 
 </html>

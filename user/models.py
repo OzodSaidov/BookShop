@@ -2,6 +2,7 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from base.model import BaseModel
+from user.services.validators import validate_phone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -64,20 +65,13 @@ class User(AbstractUser):
 
 
 class UserProfile(BaseModel):
-    ADMIN = 1
-    MODERATOR = 2
-    NEWBIE = 3
-    USER_ROLE = (
-        (ADMIN, 'Admin'),
-        (MODERATOR, 'Moderator'),
-        (NEWBIE, 'Newbie'),
-    )
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')
+    username = models.CharField(max_length=20, blank=True, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=25)
-    status = models.IntegerField(choices=USER_ROLE)
-
-    def __str__(self):
-        return f"Name: {self.user.username}" \
-               f"Status: {self.status}"
+    address = models.TextField(max_length=250, null=True)
+    city = models.CharField(max_length=50, null=True)
+    country = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=50, null=True, validators=[validate_phone])
+    photo = models.ImageField(upload_to='user/profile', null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user')

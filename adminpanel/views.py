@@ -11,4 +11,16 @@ class IndexRedirectView(LoginRequiredMixin, generic.RedirectView):
 
 
 class IndexView(AdminAccess, generic.TemplateView):
-    template_name = 'admin-panel/index.html'
+    template_name = 'adminpanel/index.html'
+
+
+class ProfileView(AdminAccess, generic.TemplateView):
+    template_name = 'adminpanel/profile.html'
+
+
+class DashboardView(AdminAccess, generic.TemplateView):
+    template_name = 'adminpanel/dashboard.html'
+
+
+class TablesView(AdminAccess, generic.TemplateView):
+    template_name = 'adminpanel/tables.html'
